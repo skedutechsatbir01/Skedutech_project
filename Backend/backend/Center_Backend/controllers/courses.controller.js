@@ -223,7 +223,7 @@ export const getCourses = async (req, res) => {
         if (franchiseId) {
             query.franchiseId = franchiseId;
         }
-        
+         
         const courses = await Course.find(query).select(
             'courseName courseCode courseFees courseMRP courseDuration instituteStatus adminApprovalStatus courseImage courseSubject createdAt updatedAt courseMaterials courseVideoLinks franchiseId' // Added franchiseId to selection
         );
@@ -244,7 +244,7 @@ export const getCoursesCount = async (req , res) => {
     if (!franchiseId) {
       return res.status(400).json({ message: "Franchise ID is required" });
     }
-        const count = await Course.countDocuments({franchiseId});
+        const count = await Course.countDocuments({franchiseId , adminApprovalStatus: "approved"});
        console.log("getting the count of franchiseID" , count)
         res.status(200).json({ count });
       } catch (error) {
